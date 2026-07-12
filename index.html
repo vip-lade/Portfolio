@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vipul Lade — Forward Deployed Engineer</title>
+<meta name="description" content="Backend distributed-systems engineer building reliability tooling for AI agents — and translating it for the people who have to trust it." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper:   #F3F4F1;
+    --panel:   #FFFFFF;
+    --ink:     #15181E;
+    --slate:   #565C66;
+    --line:    #DDDFD8;
+    --signal:  #127A56;   /* validated / reconciled / passing */
+    --signal-soft: #E7F1EC;
+    --rust:    #B4531F;    /* used once: the incident */
+    --disp: "Space Grotesk", system-ui, sans-serif;
+    --serif: "Source Serif 4", Georgia, serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+    --maxw: 1080px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+
+  /* ---- shared type ---- */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--slate);
+    margin: 0 0 14px;
+  }
+  h1, h2, h3 { font-family: var(--disp); font-weight: 600; line-height: 1.08; margin: 0; letter-spacing: -0.01em; }
+  a { color: inherit; }
+  .mono { font-family: var(--mono); }
+
+  /* ---- top bar ---- */
+  header.bar {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--paper);
+    background: color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+  .brand { font-family: var(--mono); font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-decoration: none; display: flex; align-items: center; gap: 9px; }
+  .brand .dot { width: 8px; height: 8px; border-radius: 2px; background: var(--signal); display: inline-block; }
+  nav.top { display: flex; align-items: center; gap: 26px; }
+  nav.top a { font-family: var(--mono); font-size: 13px; letter-spacing: 0.03em; text-decoration: none; color: var(--slate); transition: color .18s; }
+  nav.top a:hover { color: var(--ink); }
+  .btn {
+    font-family: var(--mono); font-size: 13px; letter-spacing: 0.02em;
+    text-decoration: none; color: var(--paper); background: var(--ink);
+    padding: 8px 16px; border-radius: 6px; border: 1px solid var(--ink);
+    transition: background .18s, transform .18s;
+  }
+  .btn:hover { background: #000; transform: translateY(-1px); }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.ghost:hover { background: var(--ink); color: var(--paper); }
+  @media (max-width: 720px){ nav.top a.navlink { display:none; } }
+
+  /* ---- hero ---- */
+  .hero { padding: 78px 0 54px; }
+  .hero h1 {
+    font-size: clamp(34px, 5.4vw, 60px);
+    max-width: 15ch;
+  }
+  .hero h1 .cont { color: var(--slate); font-weight: 500; }
+  .hero .lede {
+    max-width: 60ch; margin: 26px 0 0; font-size: 19px; color: #33383F;
+  }
+  .hero .lede b { font-weight: 600; color: var(--ink); }
+  .hero .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+  /* ---- validated readout (signature) ---- */
+  .chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+    color: var(--signal); background: var(--signal-soft);
+    padding: 4px 10px; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--signal) 25%, transparent);
+    vertical-align: middle;
+  }
+  .chip .tick { width: 13px; height: 13px; }
+  .chip .tick path { stroke: var(--signal); stroke-width: 2.4; fill: none; stroke-linecap: round; stroke-linejoin: round;
+    stroke-dasharray: 20; stroke-dashoffset: 20; animation: draw .6s .5s forwards ease-out; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce){ .chip .tick path { animation: none; stroke-dashoffset: 0; } }
+
+  /* ---- proof strip ---- */
+  .proof { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .proof .grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .metric { padding: 26px 22px; border-left: 1px solid var(--line); }
+  .metric:first-child { border-left: none; padding-left: 0; }
+  .metric .num { font-family: var(--disp); font-weight: 600; font-size: clamp(26px, 3.6vw, 38px); letter-spacing: -0.02em; }
+  .metric .num .u { color: var(--signal); }
+  .metric .lab { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--slate); margin-top: 8px; line-height: 1.4; }
+  @media (max-width: 720px){
+    .proof .grid { grid-template-columns: repeat(2, 1fr); }
+    .metric { border-top: 1px solid var(--line); }
+    .metric, .metric:first-child { padding-left: 22px; }
+    .metric:nth-child(odd){ border-left: none; }
+    .metric:nth-child(-n+2){ border-top: none; }
+  }
+
+  /* ---- section frame ---- */
+  section.block { padding: 76px 0; }
+  .sec-head { margin-bottom: 44px; max-width: 62ch; }
+  .sec-head h2 { font-size: clamp(24px, 3vw, 32px); }
+
+  /* ---- pillars ---- */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+  .pillar { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 28px 26px; }
+  .pillar .tag { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--signal); margin-bottom: 16px; }
+  .pillar h3 { font-size: 20px; margin-bottom: 12px; letter-spacing: -0.005em; }
+  .pillar p { margin: 0; font-size: 16.5px; color: #363B43; line-height: 1.55; }
+  .pillar p .em { color: var(--ink); font-weight: 600; }
+  @media (max-width: 860px){ .pillars { grid-template-columns: 1fr; } }
+
+  /* ---- featured project ---- */
+  .project { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .project .top { display: grid; grid-template-columns: 1.1fr 0.9fr; }
+  .project .left { padding: 40px 38px; border-right: 1px solid var(--line); }
+  .project .meta { font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--slate); text-transform: uppercase; }
+  .project h3 { font-size: clamp(24px, 3vw, 30px); margin: 14px 0 14px; }
+  .project .blurb { font-size: 17px; color: #363B43; margin: 0 0 22px; max-width: 46ch; }
+  .project ul { list-style: none; margin: 0; padding: 0; }
+  .project li { position: relative; padding: 0 0 0 22px; margin-bottom: 13px; font-size: 15.5px; color: #3A3F47; line-height: 1.5; }
+  .project li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: var(--signal); }
+  .project li b { color: var(--ink); font-weight: 600; }
+
+  /* faux trace readout */
+  .trace { padding: 34px 30px; background: #0F1216; color: #C9D1D9; display: flex; flex-direction: column; justify-content: center; }
+  .trace pre { font-family: var(--mono); font-size: 13px; line-height: 1.7; margin: 0; white-space: pre; overflow-x: auto; }
+  .trace .k { color: #8B98A6; }
+  .trace .p { color: #4FD69B; }
+  .trace .v { color: #E6EDF3; }
+  .trace .r { color: #E0A44B; }
+  .trace .cap { font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #6B7681; margin-top: 20px; }
+  @media (max-width: 860px){ .project .top { grid-template-columns: 1fr; } .project .left { border-right: none; border-bottom: 1px solid var(--line); } }
+
+  .proj-cta { padding: 22px 38px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; border-top: 1px solid var(--line); }
+  .proj-cta .lic { font-family: var(--mono); font-size: 12px; color: var(--slate); letter-spacing: 0.04em; }
+
+  /* ---- experience ---- */
+  .xp { border-top: 1px solid var(--line); }
+  .role { display: grid; grid-template-columns: 200px 1fr; gap: 28px; padding: 30px 0; border-bottom: 1px solid var(--line); }
+  .role .when { font-family: var(--mono); font-size: 13px; color: var(--slate); line-height: 1.6; }
+  .role .when .loc { display:block; margin-top: 4px; }
+  .role h3 { font-size: 19px; margin-bottom: 4px; }
+  .role .org { font-family: var(--mono); font-size: 13px; color: var(--signal); letter-spacing: 0.03em; margin-bottom: 12px; }
+  .role p { margin: 0; font-size: 16px; color: #383D45; max-width: 66ch; }
+  .role p .rust { color: var(--rust); font-weight: 600; }
+  @media (max-width: 720px){ .role { grid-template-columns: 1fr; gap: 8px; } }
+
+  /* ---- contact ---- */
+  .contact { background: var(--ink); color: #EDEEEA; border-radius: 16px; padding: 56px 46px; }
+  .contact .eyebrow { color: #8A929B; }
+  .contact h2 { color: #FFF; font-size: clamp(26px, 3.4vw, 36px); max-width: 20ch; }
+  .contact p { color: #B9BFC6; max-width: 54ch; margin: 20px 0 30px; font-size: 18px; }
+  .contact .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  .contact .links a {
+    font-family: var(--mono); font-size: 14px; text-decoration: none;
+    color: #EDEEEA; border: 1px solid #333A42; padding: 11px 18px; border-radius: 8px;
+    transition: border-color .18s, color .18s, background .18s;
+  }
+  .contact .links a:hover { border-color: var(--signal); color: #fff; background: rgba(18,122,86,0.14); }
+  .contact .links a.primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+  .contact .links a.primary:hover { background: #0e6547; }
+
+  footer.foot { padding: 30px 0 46px; }
+  footer.foot .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: var(--mono); font-size: 12px; color: var(--slate); letter-spacing: 0.03em; }
+
+  /* ---- reveal ---- */
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce){ .reveal { opacity: 1; transform: none; transition: none; } }
+
+  :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: 3px; }
+</style>
+<noscript><style>.reveal{opacity:1 !important;transform:none !important;}</style></noscript>
+</head>
+<body>
+
+<header class="bar">
+  <div class="wrap">
+    <a href="#top" class="brand"><span class="dot"></span>VIPUL&nbsp;LADE</a>
+    <nav class="top">
+      <a href="#work" class="navlink">Work</a>
+      <a href="#project" class="navlink">Project</a>
+      <a href="#contact" class="navlink">Contact</a>
+      <a href="RESUME.pdf" class="btn ghost">Résumé</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow reveal">Forward Deployed Engineer · Distributed Systems · AI Reliability</p>
+      <h1 class="reveal">I build systems where being wrong isn't an option.<span class="cont"> Then I point that discipline at AI — and translate it for the people who have to trust it.</span></h1>
+      <p class="lede reveal">I'm Vipul — a backend engineer on a financial core system, where a mismatched record isn't a bug, it's an audit finding. I make distributed systems <b>provably correct</b>, build open-source tooling that tells you whether an AI agent actually holds up in production, and explain both to the people who don't write code but have to sign off on them.</p>
+      <div class="cta-row reveal">
+        <a href="#project" class="btn">See the work</a>
+        <a href="Vipul_Lade_Resume.pdf" class="btn ghost">Download résumé</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="proof reveal">
+    <div class="wrap">
+      <div class="grid">
+        <div class="metric"><div class="num">90M<span class="u">+</span></div><div class="lab">account records migrated &amp; reconciled</div></div>
+        <div class="metric">
+          <div class="num">99.9<span class="u">%+</span></div>
+          <div class="lab" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">QA-validated accuracy
+            <span class="chip"><svg class="tick" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>VALIDATED</span>
+          </div>
+        </div>
+        <div class="metric"><div class="num">700M<span class="u">+</span></div><div class="lab">domain records owned end-to-end</div></div>
+        <div class="metric"><div class="num">60–70<span class="u">%</span></div><div class="lab">pipeline throughput gain</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="block" id="work">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">What I actually do</p>
+        <h2>Three things, and they reinforce each other.</h2>
+      </div>
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="tag">Systems</div>
+          <h3>Correctness under load</h3>
+          <p>I work on a financial core serving <span class="em">100M+ accounts</span>, where migration and reconciliation have to be right the first time. I delivered 90M+ records at 99.9%+ validated accuracy, rebuilt entity loading for a 60–70% throughput gain, and wrote reconciliation that survives out-of-order events instead of silently mislinking accounts.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="tag">AI reliability</div>
+          <h3>Does your agent actually work?</h3>
+          <p>I build open-source tooling that answers the question a demo can't. <span class="em">Agent Reliability Workbench</span> lets any team plug in their LLM agent, build evals from a template, and benchmark it on reliability, latency, and cost — with a full trace behind every run.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="tag">Translation</div>
+          <h3>Explaining it to whoever signs off</h3>
+          <p>Correctness only counts if the people who don't write code trust it. I've defended migration and reconciliation results to <span class="em">compliance, audit, and tech-lead reviewers</span> — turning consistency and event-ordering guarantees into terms a non-engineer can approve. It's the part I like most.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROJECT -->
+  <section class="block" id="project" style="padding-top:0;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Featured project</p>
+        <h2>Agent Reliability Workbench</h2>
+      </div>
+      <div class="project reveal">
+        <div class="top">
+          <div class="left">
+            <div class="meta">Open-source · Full-stack · Benchmarking platform</div>
+            <h3>Benchmarking for tool-using LLM agents</h3>
+            <p class="blurb">A platform where anyone registers their agent and tests it against real failure modes — the ones that break systems in production, not toy prompts.</p>
+            <ul>
+              <li>A <b>12-case benchmark</b> porting real distributed-systems failures: duplicate-key retries, DLQ poison messages, config drift, rate-limit storms, unsafe remediation.</li>
+              <li>A typed <b>Agent-Under-Test contract</b> + HTTP JSON adapter — register any external agent and run it against the same suite as the built-in reference agent.</li>
+              <li><b>FastAPI + PostgreSQL</b> services for runs, trace persistence, eval execution, and comparison APIs (Pydantic, SQLAlchemy, Alembic).</li>
+              <li>A <b>full trace per run</b> — schema and guardrail checks, latency, tokens, cost, model/prompt version — so agents compare on reliability, not vibes.</li>
+            </ul>
+          </div>
+          <div class="trace" aria-hidden="true">
+<pre><span class="k">run</span>   0f3a·2026   <span class="k">agent</span>=ref-v2
+<span class="k">case</span>  dlq-poison-message
+
+├ <span class="k">schema.validate</span>       <span class="p">PASS</span>
+├ <span class="k">guardrail.unsafe_rem</span>  <span class="p">PASS</span>
+├ <span class="k">latency</span>               <span class="v">1,284 ms</span>
+├ <span class="k">tokens</span>                <span class="v">3,910</span>
+├ <span class="k">est.cost</span>              <span class="v">$0.021</span>
+└ <span class="k">verdict</span>               <span class="r">RELIABLE ✓</span></pre>
+            <div class="cap">one persisted trace · every run</div>
+          </div>
+        </div>
+        <div class="proj-cta">
+          <span class="lic">MIT licensed · methodology, docs &amp; tests included</span>
+          <a href="https://github.com/vip-lade/agent-reliability-workbench" class="btn">View on GitHub →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="block" style="padding-top:0;">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Experience</p>
+        <h2>Where the numbers come from.</h2>
+      </div>
+      <div class="xp reveal">
+        <div class="role">
+          <div class="when">Jul 2023 — Present<span class="loc">Las Vegas, NV</span></div>
+          <div>
+            <h3>Software Engineer, Enterprise Microservices</h3>
+            <div class="org">Credit One Bank</div>
+            <p>On a 3-engineer team modernizing a legacy core account system for 100M+ accounts. I owned the Contact and Authorized User pipelines end-to-end — 700M+ records through parsing, business rules, PostgreSQL, and publishing to 4+ downstream services — and delivered migration and reconciliation at 99.9%+ validated accuracy. I also <span class="rust">resolved a production incident</span> where audit-field-only diffs were looping legacy-sync events and firing false downstream updates.</p>
+          </div>
+        </div>
+        <div class="role">
+          <div class="when">May 2022 — Aug 2022<span class="loc">Fort Worth, TX</span></div>
+          <div>
+            <h3>Python Developer Intern</h3>
+            <div class="org">TCU · Neeley School of Business</div>
+            <p>Built probabilistic modeling workflows (PyMC3, ArviZ) over large financial datasets and integrated FINRA API data into quarterly projection pipelines.</p>
+          </div>
+        </div>
+        <div class="role">
+          <div class="when">B.S. · May 2023<span class="loc">Fort Worth, TX</span></div>
+          <div>
+            <h3>B.S. Computer Science</h3>
+            <div class="org">Texas Christian University</div>
+            <p>Foundations for the systems work I do now — plus the years of explaining technical things to people who don't share the vocabulary.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="block" id="contact" style="padding-top:0;">
+    <div class="wrap">
+      <div class="contact reveal">
+        <p class="eyebrow">Open to work</p>
+        <h2>Forward Deployed &amp; AI Solutions Engineering roles.</h2>
+        <p>If you're deploying frontier models into someone's production system and need an engineer who can build it <i>and</i> explain it to the people who have to trust it — let's talk.</p>
+        <div class="links">
+          <a href="mailto:vipulslade@gmail.com" class="primary">vipulslade@gmail.com</a>
+          <a href="https://www.linkedin.com/in/vipullade">LinkedIn</a>
+          <a href="https://github.com/vip-lade">GitHub</a>
+          <a href="Vipul_Lade_Resume.pdf">Résumé (PDF)</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span>© 2026 Vipul Lade</span>
+    <span>Built to be trusted, not just seen.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</body>
+</html>
