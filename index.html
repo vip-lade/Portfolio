@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Vipul Lade — Forward Deployed Engineer</title>
-<meta name="description" content="Backend distributed-systems engineer building reliability tooling for AI agents — and translating it for the people who have to trust it." />
+<title>Vipul Lade — Backend Engineer, Applied AI</title>
+<meta name="description" content="Backend engineer from a financial core, now building AI for people who can't afford it to be wrong." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -206,7 +206,7 @@
     <a href="#top" class="brand"><span class="dot"></span>VIPUL&nbsp;LADE</a>
     <nav class="top">
       <a href="#work" class="navlink">Work</a>
-      <a href="#project" class="navlink">Project</a>
+      <a href="#project" class="navlink">Projects</a>
       <a href="#contact" class="navlink">Contact</a>
       <a href="RESUME.pdf" class="btn ghost">Résumé</a>
     </nav>
@@ -218,9 +218,9 @@
   <!-- HERO -->
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow reveal">Forward Deployed Engineer · Distributed Systems · AI Reliability</p>
+      <p class="eyebrow reveal">Backend &amp; Distributed Systems · Applied AI</p>
       <h1 class="reveal">I build systems where being wrong isn't an option.<span class="cont"> Then I point that discipline at AI — and translate it for the people who have to trust it.</span></h1>
-      <p class="lede reveal">I'm Vipul — a backend engineer on a financial core system, where a mismatched record isn't a bug, it's an audit finding. I make distributed systems <b>provably correct</b>, build open-source tooling that tells you whether an AI agent actually holds up in production, and explain both to the people who don't write code but have to sign off on them.</p>
+      <p class="lede reveal">I'm Vipul — a backend engineer on a financial core, where a mismatched record isn't a bug, it's an audit finding. That's a fast way to learn "it worked when I tried it" is never good enough. Now I build AI to the same standard — for people who <b>can't afford it to be wrong</b>.</p>
       <div class="cta-row reveal">
         <a href="#project" class="btn">See the work</a>
         <a href="Vipul_Lade_Resume.pdf" class="btn ghost">Download résumé</a>
@@ -232,15 +232,15 @@
   <section class="proof reveal">
     <div class="wrap">
       <div class="grid">
-        <div class="metric"><div class="num">90M<span class="u">+</span></div><div class="lab">account records migrated &amp; reconciled</div></div>
+        <div class="metric"><div class="num">90M<span class="u">+</span></div><div class="lab">accounts moved to the new core — zero downtime</div></div>
         <div class="metric">
           <div class="num">99.9<span class="u">%+</span></div>
-          <div class="lab" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">QA-validated accuracy
+          <div class="lab" style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">accuracy that held up to audit
             <span class="chip"><svg class="tick" viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>VALIDATED</span>
           </div>
         </div>
-        <div class="metric"><div class="num">700M<span class="u">+</span></div><div class="lab">domain records owned end-to-end</div></div>
-        <div class="metric"><div class="num">60–70<span class="u">%</span></div><div class="lab">pipeline throughput gain</div></div>
+        <div class="metric"><div class="num">700M<span class="u">+</span></div><div class="lab">records behind fraud, credit &amp; servicing decisions</div></div>
+        <div class="metric"><div class="num">60–70<span class="u">%</span></div><div class="lab">faster pipeline after I rebuilt entity loading</div></div>
       </div>
     </div>
   </section>
@@ -255,13 +255,13 @@
       <div class="pillars">
         <div class="pillar reveal">
           <div class="tag">Systems</div>
-          <h3>Correctness under load</h3>
-          <p>I work on a financial core serving <span class="em">100M+ accounts</span>, where migration and reconciliation have to be right the first time. I delivered 90M+ records at 99.9%+ validated accuracy, rebuilt entity loading for a 60–70% throughput gain, and wrote reconciliation that survives out-of-order events instead of silently mislinking accounts.</p>
+          <h3>Right the first time, at scale</h3>
+          <p>I work on a financial core where a wrong record isn't a bug — it's an audit finding. So I build for correctness under load: migrations that move tens of millions of records without dropping one, reconciliation that survives out-of-order events instead of silently mislinking accounts. <span class="em">The kind of right that holds up when someone checks.</span></p>
         </div>
         <div class="pillar reveal">
-          <div class="tag">AI reliability</div>
-          <h3>Does your agent actually work?</h3>
-          <p>I build open-source tooling that answers the question a demo can't. <span class="em">Agent Reliability Workbench</span> lets any team plug in their LLM agent, build evals from a template, and benchmark it on reliability, latency, and cost — with a full trace behind every run.</p>
+          <div class="tag">Applied AI</div>
+          <h3>AI someone can actually bet on</h3>
+          <p>I bring that same standard to AI. Making an agent work in a demo is easy; the part I care about is <span class="em">proving it holds up before it touches anything real</span> — putting a number on whether it works, then shipping it where the answer matters. Reliability isn't a feature I add at the end; it's the reason the thing is worth deploying.</p>
         </div>
         <div class="pillar reveal">
           <div class="tag">Translation</div>
@@ -272,19 +272,21 @@
     </div>
   </section>
 
-  <!-- FEATURED PROJECT -->
+  <!-- SELECTED WORK — two co-equal proofs -->
   <section class="block" id="project" style="padding-top:0;">
     <div class="wrap">
       <div class="sec-head reveal">
-        <p class="eyebrow">Featured project</p>
-        <h2>Agent Reliability Workbench</h2>
+        <p class="eyebrow">Selected work</p>
+        <h2>Two builds, same rule: prove it works, then hand it to someone.</h2>
       </div>
-      <div class="project reveal">
+
+      <!-- Proof 1 — Workbench (depth), user-value-first -->
+      <div class="project reveal" style="margin-bottom:34px;">
         <div class="top">
           <div class="left">
-            <div class="meta">Open-source · Full-stack · Benchmarking platform</div>
-            <h3>Benchmarking for tool-using LLM agents</h3>
-            <p class="blurb">A platform where anyone registers their agent and tests it against real failure modes — the ones that break systems in production, not toy prompts.</p>
+            <div class="meta">Open source · Full-stack · Benchmarking platform</div>
+            <h3>Find out if your agent breaks before your users do.</h3>
+            <p class="blurb">Anyone can get an agent working in a demo. Almost nobody can tell you whether it <i>holds up</i> — those are different jobs, and this does the second one. Plug in your LLM agent, build evals from a template, and benchmark it on reliability, latency, and cost, with a full trace behind every run.</p>
             <ul>
               <li>A <b>12-case benchmark</b> porting real distributed-systems failures: duplicate-key retries, DLQ poison messages, config drift, rate-limit storms, unsafe remediation.</li>
               <li>A typed <b>Agent-Under-Test contract</b> + HTTP JSON adapter — register any external agent and run it against the same suite as the built-in reference agent.</li>
@@ -308,6 +310,39 @@
         <div class="proj-cta">
           <span class="lic">MIT licensed · methodology, docs &amp; tests included</span>
           <a href="https://github.com/vip-lade/agent-reliability-workbench" class="btn">View on GitHub →</a>
+        </div>
+      </div>
+
+      <!-- Proof 2 — Deployment build (customer-facing), in progress -->
+      <div class="project reveal">
+        <div class="top">
+          <div class="left">
+            <div class="meta">Applied AI · Multi-agent · Building now</div>
+            <h3>A research agent, built for people who'd actually use it.</h3>
+            <p class="blurb">Students at a top business school were paying as much as <i>$200/mo</i> for AI tools they barely knew how to drive — and still hitting rate limits mid-analysis during case competitions. The ask sounded like "help me research faster." What it actually needed: read the primary filings, don't hallucinate the numbers, don't cap out. So I scoped that and started building.</p>
+            <ul>
+              <li><b>Discovery, not order-taking.</b> Traced "research for a case comp" down to what it really needed — primary SEC filings, risk-factor diffs, segment data, footnotes — and where flat-rate tools were failing him.</li>
+              <li><b>Bounded multi-agent design.</b> A frontier model plans and synthesizes; a swarm of cheap models does the reading; a verifier grounds <b>every figure to a source line</b> — because a wrong financial is worse than a vague one.</li>
+              <li><b>The AI angle on purpose.</b> Each role routes to the cheapest model that can do that job — and the whole thing runs through my <b>Agent Reliability Workbench</b>, so the cost story gets proven, not promised.</li>
+              <li><b>Value defined before the build.</b> Not a slicker chatbot — cents per report instead of a $200 flat rate, no rate-limit ceiling, and quality that holds. The same architecture is a 40–70% inference-bill cut at company scale.</li>
+            </ul>
+          </div>
+          <div class="trace" aria-hidden="true">
+<pre><span class="k">run</span>   a91f·2026   <span class="k">report</span>=NVDA·10-K
+<span class="k">route</span> lead        <span class="v">opus-4.8</span>
+<span class="k">route</span> research×3  <span class="v">deepseek-flash</span>
+<span class="k">route</span> extract     <span class="v">minimax-m3</span>
+<span class="k">route</span> verify      <span class="v">glm-5.2</span>
+
+├ <span class="k">cost.this_run</span>    <span class="v">$0.28</span>
+├ <span class="k">vs.all_frontier</span>  <span class="v">$2.40</span>
+└ <span class="k">metrics.grounded</span> <span class="p">source-cited ✓</span></pre>
+            <div class="cap">models + cost · illustrative run</div>
+          </div>
+        </div>
+        <div class="proj-cta">
+          <span class="lic">Reads primary filings · cites every metric to source · in development</span>
+          <a href="https://github.com/vip-lade" class="btn">Follow the build →</a>
         </div>
       </div>
     </div>
@@ -353,9 +388,9 @@
   <section class="block" id="contact" style="padding-top:0;">
     <div class="wrap">
       <div class="contact reveal">
-        <p class="eyebrow">Open to work</p>
-        <h2>Forward Deployed &amp; AI Solutions Engineering roles.</h2>
-        <p>If you're deploying frontier models into someone's production system and need an engineer who can build it <i>and</i> explain it to the people who have to trust it — let's talk.</p>
+        <p class="eyebrow">Get in touch</p>
+        <h2>Forward-deployed, AI solutions, and backend engineering.</h2>
+        <p>If you're putting AI into production somewhere it genuinely has to work — with your team or a customer — and you want someone who'll build it <i>and</i> stand behind it, I'd like to hear about it.</p>
         <div class="links">
           <a href="mailto:vipulslade@gmail.com" class="primary">vipulslade@gmail.com</a>
           <a href="https://www.linkedin.com/in/vipullade">LinkedIn</a>
